@@ -4,9 +4,16 @@ $this->partial('aside_feed');
 $this->partial('nav_menu');
 
 if (!empty($this->entries)) {
-	$display_today = true;
-	$display_yesterday = true;
-	$display_others = true;
+	if (FreshRSS_Context::$order === 'SHUF') {
+		// When shuffling, entries won't be ordered by date.
+		$display_today = false;
+		$display_yesterday = false;
+		$display_others = false;
+	} else {
+		$display_today = true;
+		$display_yesterday = true;
+		$display_others = true;
+	}
 	$hidePosts = !FreshRSS_Context::$user_conf->display_posts;
 	$lazyload = FreshRSS_Context::$user_conf->lazyload;
 	$content_width = FreshRSS_Context::$user_conf->content_width;
@@ -69,9 +76,9 @@ if (!empty($this->entries)) {
 				<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?php echo $this->entry->link(); ?>"><?php echo $this->entry->title(); ?></a></h1>
 				<div class="author"><?php
 					$authors = $this->entry->authors();
-					if (is_array($authors)):
+					if (is_array($authors)) :
 						$first = true;
-						foreach ($authors as $author):
+						foreach ($authors as $author) :
 							echo $first ? _t('gen.short.by_author') . ' ' : '· ';
 							$first = false;
 				?>

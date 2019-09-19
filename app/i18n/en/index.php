@@ -53,6 +53,7 @@ return array(
 		'reader_view' => 'Reading view',
 		'rss_view' => 'RSS feed',
 		'search_short' => 'Search',
+		'shuffle' => 'Shuffle',
 		'starred' => 'Show favourites',
 		'stats' => 'Statistics',
 		'subscription' => 'Subscriptions management',

@@ -1172,6 +1172,18 @@ input:checked + .slide-container .properties {
 	display: none;
 }
 
+#toggle-collapse .uncollapse {
+	display: none;
+}
+
+#toggle-collapse.collapsed .collapse {
+	display: none;
+}
+
+#toggle-collapse.collapsed .uncollapse {
+	display: inherit;
+}
+
 /*=== MOBILE */
 /*===========*/
 

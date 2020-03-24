@@ -1079,6 +1079,32 @@ function loadDynamicTags(div) {
 	req.send();
 }
 
+function init_menu() {
+        var toggleCollapseBtn = document.getElementById('toggle-collapse');
+        toggleCollapseBtn.addEventListener('click', function() {
+                var streamElem = document.getElementById('stream');
+                var toggleElem = document.getElementById('toggle-collapse');
+                var wascollapsed = streamElem.classList.contains('hide_posts');
+                if (wascollapsed) {
+                        streamElem.classList.remove('hide_posts');
+                        toggleElem.classList.remove('collapsed');
+                } else {
+                        streamElem.classList.add('hide_posts');
+                        toggleElem.classList.add('collapsed');
+                }
+
+                if (context.does_lazyload && wascollapsed) {
+                        var lazyElems = streamElem.querySelectorAll('img[data-original], iframe[data-original]');
+                        var index = 0;
+                        for (index=0; index < lazyElems.length; ++index) {
+                                var lazyElem = lazyElems[index];
+                                lazyElem.setAttribute('src', lazyElem.getAttribute('data-original'));
+                                lazyElem.removeAttribute('data-original');
+                        }
+                }
+        }, false);
+}
+
 // <actualize>
 var feed_processed = 0;
 
@@ -1564,6 +1590,7 @@ function init_afterDOM() {
 		init_load_more(stream);
 		init_posts();
 		init_nav_entries();
+		init_menu();
 		init_notifs_html5();
 		setTimeout(faviconNbUnread, 1000);
 		setInterval(refreshUnreads, 120000);
